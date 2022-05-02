@@ -4,6 +4,8 @@ import PostCard from "../components/postcard";
 import PostMaker from "../components/postmaker";
 
 const Home = () => {
+  const [postMakerState, setPostMakerState] = useState("");
+
   const [posts, setPosts] = useState([
     {
       name: "Daniel Mirlea",
@@ -37,7 +39,9 @@ const Home = () => {
     },
     {
       name: "Daniel Mirlea",
-      imageUrl: "",
+      imageUrl: `https://random.imagecdn.app/500/15${Math.ceil(
+        Math.random(1) * 4 + 4
+      )}`,
       postCaption:
         "A Pretty Cool photo from the mountains. Image credit to @danielmirlea on Unsplash.",
       relevantCommentName: "@Some Person",
@@ -48,23 +52,68 @@ const Home = () => {
   return (
     <Layout pageTitle="Newsfeed">
       <div className="">
-        <div class="py-4 w-full flex flex-row flex-wrap justify-center ">
-          <div class="w-full md:w-3/4 lg:w-4/5 p-5 md:px-12 lg:24 h-full antialiased">
-            <PostMaker />
+        <div className="py-4 w-full flex flex-row flex-wrap justify-center">
+          <div className="w-full md:w-3/4 lg:w-4/5 p-5 md:px-12 lg:24 h-full antialiased">
+            <div className="">
+              <div className="bg-green-400 w-full shadow-lg rounded-lg p-5">
+                <textarea
+                  value={postMakerState}
+                  onChange={(e) => setPostMakerState(e.target.value)}
+                  className="bg-green-200 w-full rounded-lg text-black shadow border p-2 resize-none outline-none"
+                  rows="3"
+                  placeholder="Speak your mind. . ."
+                ></textarea>
+
+                <div className="w-full flex flex-row flex-wrap mt-3">
+                  <div className="md:w-2/3 w-2/3 relative mt-2">
+                    <span className="absolute bottom-11 text-sm italic">
+                      Set post audience:
+                    </span>
+                    <select className="w-1/2 p-2 rounded-lg bg-indigo-400 focus:outline-none text-white z-10 shadow float-left hover:cursor-pointer">
+                      <option value="Friends only">Friends only</option>
+                      <option value="Public">Public</option>
+                      <option value="Private">Private</option>
+                    </select>
+                  </div>
+                  <div className="w-1/3">
+                    <button
+                      onClick={() => {
+                        postMakerState &&
+                          posts.push({
+                            name: "Josh Dev",
+                            imageUrl: `https://random.imagecdn.app/500/15${Math.ceil(
+                              Math.random(1) * 4 + 4
+                            )}`,
+                            postCaption: postMakerState,
+                            relevantComment: "",
+                          });
+                        setPostMakerState("");
+                      }}
+                      type="button"
+                      className="float-right bg-white hover:bg-green-700 duration-300 hover:text-white font-bold text-green-500 px-4 p-2 rounded-lg"
+                    >
+                      Post
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
             {posts &&
-              posts.map((post, i) => (
-                <>
-                  {posts ? (
-                    <PostCard
-                      poster={post.name}
-                      imageUrl={post.imageUrl}
-                      postCaption={post.postCaption}
-                    />
-                  ) : (
-                    ""
-                  )}
-                </>
-              ))}
+              posts
+                .map((post, i) => (
+                  <>
+                    {posts ? (
+                      <PostCard
+                        poster={post.name}
+                        imageUrl={post.imageUrl}
+                        postCaption={post.postCaption}
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </>
+                ))
+                .reverse()}
           </div>
         </div>
       </div>

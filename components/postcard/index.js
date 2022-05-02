@@ -29,12 +29,12 @@ const PostCard = ({
           <img
             className={
               imageUrl
-                ? "border rounded-b-lg hover:shadow-lg shadow hover:cursor-pointer duration-300 mb-3"
+                ? "border rounded-b-lg hover:shadow-lg shadow hover:cursor-pointer w-full duration-300 mb-3"
                 : ""
             }
             src={imageUrl}
           />
-          <div className="bg-white p-5 ">
+          <div className="bg-white p-5">
             <span className="text-lg text-gray-700 font-semibold">
               {postCaption}
             </span>
