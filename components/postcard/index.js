@@ -32,22 +32,26 @@ const PostCard = ({
                 ? "border rounded-b-lg hover:shadow-lg shadow hover:cursor-pointer w-full duration-300 mb-3"
                 : ""
             }
+            style={{ height: "40vh" }}
             src={imageUrl}
           />
-          <div className="bg-white p-5">
-            <span className="text-lg text-gray-700 font-semibold">
+          <div className="bg-white md:p-5 p-4 py-3">
+            <span
+              className="text-lg text-gray-700 font-semibold"
+              style={{ wordBreak: "break-word" }}
+            >
               {postCaption}
             </span>
           </div>
           <div className="bg-white p-1 border shadow flex flex-row flex-wrap rounded-b-lg">
             <div className="w-1/3 hover:bg-gray-200 text-center text-xl text-gray-700 font-semibold hover:cursor-pointer hover:text-red-600">
-              <i className="fa fa-heart md:mx-2"></i> Like
+              <i className="fa fa-heart md:mx-2 text-xl md:text-3xl"></i>
             </div>
             <div className="w-1/3 hover:bg-gray-200 border-l-4 border-r- text-center text-xl text-gray-700 font-semibold hover:text-blue-600 hover:cursor-pointer">
-              <i className="fa fa-share-alt md:mx-2"></i> Share
+              <i className="fa fa-share-alt md:mx-2 text-xl md:text-3xl"></i>
             </div>
-            <div className="w-1/3 hover:bg-gray-200 border-l-4 hover:text-green-600 text-center text-lg md:text-xl text-gray-700 font-semibold hover:cursor-pointer">
-              <i className="fa fa-comment md:mx-2"></i> Comment
+            <div className="w-1/3 px-2 hover:bg-gray-200 border-l-4 hover:text-green-600 text-center text-lg md:text-xl text-gray-700 font-semibold hover:cursor-pointer">
+              <i className="fa fa-comment md:mx-2 text-xl md:text-3xl"></i>
             </div>
           </div>
           <div className="hidden">

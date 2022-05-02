@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../components/layout";
 import PostCard from "../components/postcard";
-import PostMaker from "../components/postmaker";
 
 const Home = () => {
   const [postMakerState, setPostMakerState] = useState("");
@@ -58,6 +57,7 @@ const Home = () => {
               <div className="bg-green-400 w-full shadow-lg rounded-lg p-5">
                 <textarea
                   value={postMakerState}
+                  maxLength="150"
                   onChange={(e) => setPostMakerState(e.target.value)}
                   className="bg-green-200 w-full rounded-lg text-black shadow border p-2 resize-none outline-none"
                   rows="3"
@@ -80,9 +80,9 @@ const Home = () => {
                       onClick={() => {
                         postMakerState &&
                           posts.push({
-                            name: "Josh Dev",
-                            imageUrl: `https://random.imagecdn.app/500/15${Math.ceil(
-                              Math.random(1) * 4 + 4
+                            name: "User",
+                            imageUrl: `https://random.imagecdn.app/500/1${Math.floor(
+                              Math.random() * 100
                             )}`,
                             postCaption: postMakerState,
                             relevantComment: "",

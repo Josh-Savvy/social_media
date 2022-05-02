@@ -33,8 +33,10 @@ const Login = () => {
       ...state,
       buttonText: (
         <div className="flex justify-center">
-          <i className="fa fa-spinner fa-spin text-3xl"></i>
-          <span className="ml-2 mt-1">Logging in..</span>
+          <i className="fa fa-spinner fa-spin md:text-3xl"></i>
+          <span className="md:ml-2 md:mt-1 ml-2 whitespace-nowrap md:whitespace-nowrap">
+            Logging in
+          </span>
         </div>
       ),
     });
@@ -46,7 +48,10 @@ const Login = () => {
 
   return (
     <Layout pageTitle="Login">
-      <div className="flex flex-wrap justify-center ">
+      <div
+        className="flex flex-wrap justify-center"
+        style={{ overflowX: "hidden" }}
+      >
         <form
           className="md:mt-24 mt-20 p-3 md:p-0"
           onSubmit={(e) => handleSubmit(e)}
@@ -92,7 +97,7 @@ const Login = () => {
               </label>
             </div>
             <div className="flex flex-wrap justify-center hover:cursor-pointer">
-              <button className="bg-green-700 hover:bg-green-600 rounded w-3/4 py-2 text-xl text-white font-semibold">
+              <button className="bg-green-700 hover:bg-green-600 rounded p-2 text-xl text-white font-semibold">
                 {buttonText}
               </button>
             </div>

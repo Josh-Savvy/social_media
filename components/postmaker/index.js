@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const PostMaker = ({}) => {
-  const [postMakerState, setPostMakerState] = useState([]);
+  const [postMakerState, setPostMakerState] = useState("");
   return (
     <div className="">
       <div className="bg-green-400 w-full shadow-lg rounded-lg p-5">
