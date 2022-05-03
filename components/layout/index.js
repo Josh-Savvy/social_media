@@ -5,6 +5,7 @@ import Link from "next/link";
 import nProgress from "nprogress";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { isAuth } from "../../helpers/auth";
 
 Router.onRouteChangeStart = (url) => nProgress.start();
 Router.onRouteChangeComplete = (url) => nProgress.done();
@@ -109,12 +110,24 @@ const Layout = ({ children, pageTitle }) => {
                   </div>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <Link href="/user/notifications">
-                      <div>
+                      <div className="outline-none relative">
                         <button
                           type="button"
-                          className="bg-green-800 p-1 rounded-full text-green-100 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-800 focus:ring-white"
+                          className="bg-green-800 outline-none p-1 rounded-full text-green-100 hover:text-white"
                         >
                           <span className="sr-only">View notifications</span>
+                          {isAuth() && (
+                            <div className="absolute top-1 md:top-0 md:right-1 right-2 duration-500">
+                              <span className="flex h-3 w-3">
+                                <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-red-300"></span>
+                                <span className="relative inline-flex rounded-full h-3 w-3 bg-red-600">
+                                  <span className="text-sm absolute" style={{top:"-4px", left:"3px", fontSize:"11px"}}>
+                                    2
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                          )}
                           <BellIcon className="h-6 w-6" aria-hidden="true" />
                         </button>
                       </div>

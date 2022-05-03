@@ -6,3 +6,4 @@ export const API = publicRuntimeConfig.API;
 export const PRODUCTION = publicRuntimeConfig.PRODUCTION;
 export const DOMAIN = publicRuntimeConfig.DOMAIN;
 export const FB_APP_ID = publicRuntimeConfig.FB_APP_ID;
+export const JWT_SIGN_KEY = publicRuntimeConfig.JWT_SIGN_KEY;

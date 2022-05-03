@@ -1,13 +1,27 @@
-import React from "react";
+import Router from "next/router";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/layout";
-import userMiddleware from "../../middlewares/userMiddlware";
+import { getCookieFromBrowser, isAuth } from "../../helpers/auth";
 
 const UserProfile = () => {
+  const [userData, setUserData] = useState([]);
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    role: "",
+  });
+  const { name, email, role } = user;
+
+  useEffect(() => {
+    isAuth()
+      ? setUserData(localStorage.getItem("user"))
+      : Router.push("/login");
+    isAuth() && setUser({ ...user, name: isAuth().name.split(" ")[0] });
+  }, []);
+
   return (
-    <Layout>
-      <div>User Profile</div>
-    </Layout>
+    <Layout>{name ? <div>User: {name && name}</div> : "No user found"}</Layout>
   );
 };
 
-export default userMiddleware(UserProfile);
+export default UserProfile;

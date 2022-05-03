@@ -5,5 +5,6 @@ module.exports = {
     PRODUCTION: false,
     DOMAIN: "",
     FB_APP_ID: "KDKWMNKDOI",
+    JWT_SIGN_KEY: "wewr342323$#$$$4434rfee",
   },
 };

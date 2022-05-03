@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Layout from "../components/layout";
 import PostCard from "../components/postcard";
+import dynamic from "next/dynamic";
+const Layout = dynamic(() => import("../components/layout"), { ssr: false });
 
 const Home = () => {
   const [postMakerState, setPostMakerState] = useState("");
@@ -61,7 +62,7 @@ const Home = () => {
                   onChange={(e) => setPostMakerState(e.target.value)}
                   className="bg-green-200 w-full rounded-lg text-black shadow border p-2 resize-none outline-none"
                   rows="3"
-                  placeholder="Speak your mind. . ."
+                  placeholder="Post something. . ."
                 ></textarea>
 
                 <div className="w-full flex flex-row flex-wrap mt-3">
@@ -81,7 +82,7 @@ const Home = () => {
                         postMakerState &&
                           posts.push({
                             name: "User",
-                            imageUrl: `https://random.imagecdn.app/500/1${Math.floor(
+                            imageUrl: `https://random.imagecdn.app/1080/11${Math.floor(
                               Math.random() * 100
                             )}`,
                             postCaption: postMakerState,

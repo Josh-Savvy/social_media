@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 const PostCard = ({
   poster,
@@ -8,6 +8,18 @@ const PostCard = ({
   relevantCommentName,
   relevantComment,
 }) => {
+  const [likeClicked, setLikeClicked] = useState(false);
+
+  const NotLikedIcon = () => {
+    return <i className="fa fa-heart md:mx-2 text-xl md:text-3xl"></i>;
+  };
+
+  const LikeIcon = () => {
+    return (
+      <i className="fa fa-heart md:mx-2 text-red-600 text-xl md:text-3xl"></i>
+    );
+  };
+
   return (
     <div>
       <div className="mt-3 flex flex-col">
@@ -32,7 +44,7 @@ const PostCard = ({
                 ? "border rounded-b-lg hover:shadow-lg shadow hover:cursor-pointer w-full duration-300 mb-3"
                 : ""
             }
-            style={{ height: "40vh" }}
+            // style={{ height: "40vh" }}
             src={imageUrl}
           />
           <div className="bg-white md:p-5 p-4 py-3">
@@ -44,13 +56,25 @@ const PostCard = ({
             </span>
           </div>
           <div className="bg-white p-1 border shadow flex flex-row flex-wrap rounded-b-lg">
-            <div className="w-1/3 hover:bg-gray-200 text-center text-xl text-gray-700 font-semibold hover:cursor-pointer hover:text-red-600">
-              <i className="fa fa-heart md:mx-2 text-xl md:text-3xl"></i>
+            <div
+              id="likeBtn"
+              onClick={() => {
+                !likeClicked ? setLikeClicked(true) : setLikeClicked(false);
+              }}
+              className="w-1/3 likeIcon text-center text-xl text-gray-700 font-semibold hover:cursor-pointer hover:text-red-600"
+            >
+              {likeClicked ? <LikeIcon /> : <NotLikedIcon />}
             </div>
-            <div className="w-1/3 hover:bg-gray-200 border-l-4 border-r- text-center text-xl text-gray-700 font-semibold hover:text-blue-600 hover:cursor-pointer">
+            <div
+              className="w-1/3 border-l-4 border-r- text-center text-xl text-gray-700 font-semibold hover:text-blue-600 hover:cursor-pointer"
+              id="shareBtn"
+            >
               <i className="fa fa-share-alt md:mx-2 text-xl md:text-3xl"></i>
             </div>
-            <div className="w-1/3 px-2 hover:bg-gray-200 border-l-4 hover:text-green-600 text-center text-lg md:text-xl text-gray-700 font-semibold hover:cursor-pointer">
+            <div
+              className="w-1/3 px-2 border-l-4 hover:text-green-600 text-center text-lg md:text-xl text-gray-700 font-semibold hover:cursor-pointer"
+              id="commentBtn"
+            >
               <i className="fa fa-comment md:mx-2 text-xl md:text-3xl"></i>
             </div>
           </div>

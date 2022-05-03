@@ -1,7 +1,9 @@
 import Link from "next/link";
+import jwt from "jsonwebtoken";
+import Router from "next/router";
 import React, { useEffect, useState } from "react";
 import Layout from "../components/layout";
-import { API } from "../config";
+import { API, JWT_SIGN_KEY } from "../config";
 import { authenticate, isAuth } from "../helpers/auth";
 
 const Login = () => {
@@ -14,7 +16,7 @@ const Login = () => {
   });
   const { password, email, success, error, buttonText } = state;
 
-  useEffect(() => isAuth() && Router.push("/"), []);
+  // useEffect(() => isAuth() && Router.push("/"), []);
 
   const handleChange = (name) => (e) => {
     setState({
@@ -28,12 +30,14 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.table(state);
+    console.table(name, email, password);
     setState({
       ...state,
       buttonText: (
         <div className="flex justify-center">
-          <i className="fa fa-spinner fa-spin md:text-3xl"></i>
+          <div className="md:text-3xl">
+            <i className="fa fa-spinner fa-spin"></i>
+          </div>
           <span className="md:ml-2 md:mt-1 ml-2 whitespace-nowrap md:whitespace-nowrap">
             Logging in
           </span>
@@ -41,8 +45,33 @@ const Login = () => {
       ),
     });
     try {
+      const response = {
+        data: {
+          token: `${jwt.sign({ email, password }, JWT_SIGN_KEY)}`,
+          user: {
+            _id: function uuidv4() {
+              return "xxxxxxx4xxxyxxxxxxxxxxxxxxx".replace(
+                /[xy]/g,
+                function (c) {
+                  var r = (Math.random() * 16) | 0,
+                    v = c == "x" ? r : (r & 0x3) | 0x8;
+                  return v.toString(16);
+                }
+              );
+            },
+            name: "UserName",
+            email: email,
+            role: "user",
+          },
+        },
+      };
+      authenticate(response, () =>
+        isAuth() && isAuth().role === "admin"
+          ? Router.push("/admin")
+          : Router.push("/user")
+      );
     } catch (error) {
-      //
+      console.log(error);
     }
   };
 
