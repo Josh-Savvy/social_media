@@ -121,7 +121,14 @@ const Layout = ({ children, pageTitle }) => {
                               <span className="flex h-3 w-3">
                                 <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-red-300"></span>
                                 <span className="relative inline-flex rounded-full h-3 w-3 bg-red-600">
-                                  <span className="text-sm absolute" style={{top:"-4px", left:"3px", fontSize:"11px"}}>
+                                  <span
+                                    className="text-sm absolute"
+                                    style={{
+                                      top: "-4px",
+                                      left: "3px",
+                                      fontSize: "11px",
+                                    }}
+                                  >
                                     3
                                   </span>
                                 </span>
@@ -155,7 +162,7 @@ const Layout = ({ children, pageTitle }) => {
                         </Menu.Button>
                       </div>
 
-                      {isAuth() && (
+                      {isAuth() ? (
                         <Transition
                           as={Fragment}
                           enter="transition ease-out duration-100"
@@ -210,6 +217,34 @@ const Layout = ({ children, pageTitle }) => {
                                 >
                                   Sign out
                                 </a>
+                              )}
+                            </Menu.Item>
+                          </Menu.Items>
+                        </Transition>
+                      ) : (
+                        <Transition
+                          as={Fragment}
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95"
+                        >
+                          <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link href="/login">
+                                  <a
+                                    className={classNames(
+                                      active
+                                        ? "bg-green-100"
+                                        : "block px-4 py-2 text-sm text-green-700 hover:bg-green-100"
+                                    )}
+                                  >
+                                   Log in
+                                  </a>
+                                </Link>
                               )}
                             </Menu.Item>
                           </Menu.Items>

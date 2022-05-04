@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../components/layout";
 import { API, JWT_SIGN_KEY } from "../config";
 import { authenticate, isAuth } from "../helpers/auth";
+import { errorAlert } from "../components/alerts";
 
 const Login = () => {
   const [state, setState] = useState({
@@ -30,7 +31,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.table(name, email, password);
     setState({
       ...state,
       buttonText: (
@@ -59,17 +59,24 @@ const Login = () => {
                 }
               );
             },
-            name: "UserName",
+            name: "RandomUser",
             email: email,
             role: "user",
           },
         },
       };
-      authenticate(response, () =>
-        isAuth() && isAuth().role === "admin"
-          ? Router.push("/admin")
-          : Router.push("/user")
-      );
+      if (!email && !password) {
+        setState({ ...state, error: "Invalid credentials" });
+        setTimeout(() => {
+          setState({ ...state, success: "", error: "" });
+        }, 4000);
+      } else {
+        authenticate(response, () =>
+          isAuth() && isAuth().role === "admin"
+            ? Router.push("/admin")
+            : Router.push("/user")
+        );
+      }
     } catch (error) {
       console.log(error);
     }
@@ -81,6 +88,7 @@ const Login = () => {
         className="flex flex-wrap justify-center"
         style={{ overflowX: "hidden" }}
       >
+        {error && errorAlert(error)}
         <form
           className="md:mt-24 mt-20 p-3 md:p-0"
           onSubmit={(e) => handleSubmit(e)}

@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import PostCard from "../components/postcard";
 import dynamic from "next/dynamic";
+import { isAuth } from "../helpers/auth";
+import { errorAlert, successAlert } from "../components/alerts";
 const Layout = dynamic(() => import("../components/layout"), { ssr: false });
 
 const Home = () => {
   const [postMakerState, setPostMakerState] = useState("");
+  const [state, setState] = useState({
+    success: "",
+    error: "",
+  });
 
+  const { error, success } = state;
   const [posts, setPosts] = useState([
     {
       name: "Daniel Mirlea",
@@ -49,12 +56,56 @@ const Home = () => {
         " A Pretty Cool photo from the mountains. Image credit to",
     },
   ]);
+
+  const handlePostButton = () => {
+    if (isAuth()) {
+      if (postMakerState.length > 5) {
+        posts.push({
+          name: "User",
+          imageUrl: `https://random.imagecdn.app/1080/11${Math.floor(
+            Math.random() * 100
+          )}`,
+          postCaption: postMakerState,
+          relevantComment: "",
+        });
+        setPostMakerState("");
+        setState({ ...state, success: "Post created!", error: "" });
+        setTimeout(() => {
+          setState({ ...state, success: "", error: "" });
+        }, 4000);
+      } else {
+        setState({
+          ...state,
+          success: "",
+          error: "Post must be greater than 5 characters!",
+        });
+        setTimeout(() => {
+          setState({ ...state, success: "", error: "" });
+        }, 2000);
+      }
+    } else {
+      setState({
+        success: "",
+        error: "User not logged in",
+      });
+      setTimeout(() => {
+        setState({
+          success: "",
+          error: "",
+        });
+      }, 4000);
+      console.log("User not logged in");
+    }
+  };
+
   return (
     <Layout pageTitle="Newsfeed">
       <div className="">
         <div className="py-4 w-full flex flex-row flex-wrap justify-center">
           <div className="w-full md:w-3/4 lg:w-4/5 p-5 md:px-12 lg:24 h-full antialiased">
             <div className="">
+              {error && errorAlert(error)}
+              {success && successAlert(success)}
               <div className="bg-green-400 w-full shadow-lg rounded-lg p-5">
                 <textarea
                   value={postMakerState}
@@ -78,18 +129,7 @@ const Home = () => {
                   </div>
                   <div className="w-1/3">
                     <button
-                      onClick={() => {
-                        postMakerState &&
-                          posts.push({
-                            name: "User",
-                            imageUrl: `https://random.imagecdn.app/1080/11${Math.floor(
-                              Math.random() * 100
-                            )}`,
-                            postCaption: postMakerState,
-                            relevantComment: "",
-                          });
-                        setPostMakerState("");
-                      }}
+                      onClick={handlePostButton}
                       type="button"
                       className="float-right bg-white hover:bg-green-700 duration-300 hover:text-white font-bold text-green-500 px-4 p-2 rounded-lg"
                     >
