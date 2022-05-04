@@ -73,7 +73,7 @@ export const isAuth = () => {
   }
 };
 
-export const logout = () => {
+export const logOut = () => {
   removeCookie("token");
   removeLocalStorage("user");
   Router.push("/login");

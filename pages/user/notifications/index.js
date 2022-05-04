@@ -34,9 +34,9 @@ photo: "♥img".`,
   const userData3 = {
     imgSrc: "/static/images/person-placeholder.jpg",
     alt: "",
-    name: "Joshua DC ",
+    name: "User 3 ",
     message: `liked your
-photo: "♥img".`,
+post: "@danielimerej sent a photo of a mounta... ".`,
     time: "an hour ago",
     id: nanoid(),
   };
