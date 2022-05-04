@@ -61,18 +61,18 @@ const PostCard = ({
               onClick={() => {
                 !likeClicked ? setLikeClicked(true) : setLikeClicked(false);
               }}
-              className="w-1/3 likeIcon text-center text-xl text-gray-700 font-semibold hover:cursor-pointer hover:text-red-600"
+              className="w-1/3 likeIcon text-center text-xl text-gray-700 font-semibold hover:cursor-pointer md:hover:text-red-600"
             >
               {likeClicked ? <LikeIcon /> : <NotLikedIcon />}
             </div>
             <div
-              className="w-1/3 border-l-4 border-r- text-center text-xl text-gray-700 font-semibold hover:text-blue-600 hover:cursor-pointer"
+              className="w-1/3 border-l-4 border-r- text-center text-xl text-gray-700 font-semibold md:hover:text-blue-600 hover:cursor-pointer"
               id="shareBtn"
             >
               <i className="fa fa-share-alt md:mx-2 text-xl md:text-3xl"></i>
             </div>
             <div
-              className="w-1/3 px-2 border-l-4 hover:text-green-600 text-center text-lg md:text-xl text-gray-700 font-semibold hover:cursor-pointer"
+              className="w-1/3 px-2 border-l-4 md:hover:text-green-600 text-center text-lg md:text-xl text-gray-700 font-semibold hover:cursor-pointer"
               id="commentBtn"
             >
               <i className="fa fa-comment md:mx-2 text-xl md:text-3xl"></i>
@@ -95,3 +95,4 @@ const PostCard = ({
 };
 
 export default PostCard;
+ 
