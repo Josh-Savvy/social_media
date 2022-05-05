@@ -39,6 +39,7 @@ const Register = () => {
       Router.push("/");
     }, 0);
 
+
   const handleChange = (name) => (e) => {
     setState({
       ...state,
