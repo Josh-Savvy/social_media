@@ -17,7 +17,10 @@ const Login = () => {
   });
   const { password, email, success, error, buttonText } = state;
 
-  // useEffect(() => isAuth() && Router.push("/"), []);
+  isAuth() &&
+    setTimeout(() => {
+      Router.push("/");
+    }, 0);
 
   const handleChange = (name) => (e) => {
     setState({

@@ -3,7 +3,7 @@ import Layout from "../components/layout";
 import Router from "next/router";
 import Link from "next/link";
 import { API } from "../config";
-import { authenticate, isAuth } from "../helpers/auth";
+import { authenticate, getCookie, isAuth } from "../helpers/auth";
 import { errorAlert, successAlert } from "../components/alerts";
 
 const Register = () => {
@@ -34,7 +34,10 @@ const Register = () => {
     buttonText,
   } = state;
 
-  // useEffect(() => isAuth() && Router.push("/"), []);
+  isAuth() &&
+    setTimeout(() => {
+      Router.push("/");
+    }, 0);
 
   const handleChange = (name) => (e) => {
     setState({
@@ -46,7 +49,7 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setState({
       ...state,
@@ -73,6 +76,7 @@ const Register = () => {
       ),
     });
     try {
+      // http://localhost:5000/api/register
     } catch (error) {
       //
     }
